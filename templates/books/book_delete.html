@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Kitobni o‘chirish</title>
+</head>
+<body>
+
+    <h2>Kitobni o‘chirish</h2>
+
+    <p>
+        Siz rostdan ham
+        <strong>{{ product.title }}</strong>
+        kitobini o‘chirmoqchimisiz?
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" style="color: white; background: red; padding: 8px 15px;">
+            Ha, o‘chirish
+        </button>
+
+        <a href="{% url 'product_list' %}" style="margin-left: 10px;">
+            Bekor qilish
+        </a>
+    </form>
+
+</body>
+</html>

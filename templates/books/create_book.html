@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitob qo‘shish</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-indigo-50 via-white to-indigo-100 min-h-screen flex items-center justify-center px-4">
+
+<div class="w-full max-w-2xl bg-white/80 backdrop-blur-xl shadow-2xl rounded-3xl p-8 border border-gray-100">
+
+    <!-- Header -->
+    <div class="text-center mb-8">
+        <div class="text-4xl">📖</div>
+        <h1 class="text-3xl font-bold text-indigo-700">Yangi kitob qo‘shish</h1>
+        <p class="text-gray-500 text-sm mt-1">Barcha maydonlarni to‘ldiring</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-5">
+        {% csrf_token %}
+
+        <!-- Title -->
+        <div>
+            <label class="text-sm font-semibold text-gray-700">Kitob nomi</label>
+            {{ form.title }}
+        </div>
+
+        <!-- Author -->
+        <div>
+            <label class="text-sm font-semibold text-gray-700">Muallif</label>
+            {{ form.author }}
+        </div>
+
+        <!-- Category -->
+        <div>
+            <label class="text-sm font-semibold text-gray-700">Kategoriya</label>
+            {{ form.category }}
+        </div>
+
+        <!-- Published Date -->
+        <div>
+            <label class="text-sm font-semibold text-gray-700">Chop etilgan sana</label>
+            {{ form.published_date }}
+        </div>
+
+        <!-- Count -->
+        <div>
+            <label class="text-sm font-semibold text-gray-700">Soni</label>
+            {{ form.count }}
+        </div>
+
+        <!-- Image -->
+        <div>
+    <label class="text-sm font-semibold text-gray-700">Rasm</label>
+
+    <div class="mt-2 flex items-center gap-4">
+
+        <!-- Hidden input -->
+        <input type="file" name="image" id="imageInput" class="hidden" accept="image/*">
+
+        <!-- Custom button -->
+        <label for="imageInput"
+               class="cursor-pointer bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl transition">
+            📤 Rasm tanlash
+        </label>
+
+        <!-- file name -->
+        <span id="fileName" class="text-sm text-gray-500">Hech qanday rasm tanlanmagan</span>
+    </div>
+
+    <!-- preview -->
+    <img id="preview" class="mt-4 hidden w-32 h-32 object-cover rounded-xl border">
+</div>
+
+        <!-- Buttons -->
+        <div class="flex items-center justify-between pt-6">
+
+            <a href="{% url 'home' %}"
+               class="text-gray-500 hover:text-gray-800 font-medium transition">
+                ← Orqaga
+            </a>
+
+            <button type="submit"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2 rounded-xl shadow-md transition transform hover:scale-105">
+                Saqlash
+            </button>
+
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

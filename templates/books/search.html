@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    .search-wrapper {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 20px;
+    }
+
+    .search-title {
+        font-size: 26px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .query-text {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .book-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+    }
+
+    .book-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        transition: 0.3s;
+        border: 1px solid #eee;
+    }
+
+    .book-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+        border-color: #4f46e5;
+    }
+
+    .book-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #222;
+    }
+
+    .book-author {
+        color: #555;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 4px 10px;
+        font-size: 12px;
+        border-radius: 20px;
+        background: #eef2ff;
+        color: #4f46e5;
+    }
+
+    .empty {
+        text-align: center;
+        padding: 40px;
+        color: #777;
+        font-size: 18px;
+    }
+</style>
+
+<div class="search-wrapper">
+
+    <div class="search-title">
+        🔍 Search Results
+    </div>
+
+    {% if query %}
+        <div class="query-text">
+            Qidirilgan: <b>{{ query }}</b>
+        </div>
+    {% endif %}
+
+    {% if books %}
+        <div class="book-list">
+
+            {% for book in books %}
+                <div class="book-card">
+
+                    <div class="book-title">
+                        {{ book.title }}
+                    </div>
+
+                    <div class="book-author">
+                        👤 {{ book.author.name }}
+                    </div>
+
+                    <span class="badge">
+                        {{ book.category.name }}
+                    </span>
+
+                </div>
+            {% endfor %}
+
+        </div>
+    {% else %}
+        <div class="empty">
+            😕 Hech narsa topilmadi
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

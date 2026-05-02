@@ -1,0 +1,882 @@
+<body>{% load static %}
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Kutubxona Boshqaruv Tizimi{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f5f8ff;
+            color: #0f172a;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 34px;
+            color: #2563eb;
+        }
+
+        .logo-text h2 {
+            font-size: 30px;
+            color: #0b2a67;
+            line-height: 1;
+        }
+
+        .logo-text p {
+            font-size: 15px;
+            color: #475569;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1e293b;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #2563eb;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 26px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            transition: 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #174bc9;
+        }
+
+        .btn-outline {
+            background: white;
+            color: #2563eb;
+            border: 2px solid #93c5fd;
+        }
+
+        .btn-outline:hover {
+            background: #eff6ff;
+        }
+
+        /* HERO */
+        .hero {
+            padding: 40px 0 25px;
+        }
+
+        .hero-wrapper {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .hero-left {
+            padding: 30px 10px 30px 0;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #dbeafe;
+            color: #2563eb;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 22px;
+        }
+
+        .hero-left h1 {
+            font-size: 68px;
+            line-height: 1.05;
+            color: #0b2454;
+            margin-bottom: 22px;
+            font-weight: 800;
+        }
+
+        .hero-left h1 span {
+            color: #2563eb;
+        }
+
+        .hero-left p {
+            font-size: 28px;
+            line-height: 1.5;
+            color: #475569;
+            max-width: 760px;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .hero-right {
+            background: white;
+            border-radius: 28px;
+            padding: 20px;
+            box-shadow: 0 15px 40px rgba(37, 99, 235, 0.10);
+            border: 1px solid #e5e7eb;
+        }
+
+        .dashboard-top {
+            display: flex;
+            gap: 15px;
+        }
+
+        .sidebar-mini {
+            width: 180px;
+            background: #082f74;
+            color: white;
+            border-radius: 20px;
+            padding: 20px 15px;
+        }
+
+        .sidebar-mini h4 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .sidebar-mini ul {
+            list-style: none;
+        }
+
+        .sidebar-mini ul li {
+            padding: 12px 10px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            background: transparent;
+            font-size: 15px;
+        }
+
+        .sidebar-mini ul li.active {
+            background: #2563eb;
+        }
+
+        .dashboard-content {
+            flex: 1;
+        }
+
+        .dashboard-search {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 14px 16px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            color: #64748b;
+        }
+
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .mini-card {
+            background: #f8fbff;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .mini-card h5 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #0f172a;
+        }
+
+        .mini-card p {
+            font-size: 14px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* SEARCH BAR */
+        .search-section {
+            margin: 25px 0 18px;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 22px;
+            padding: 18px;
+            display: grid;
+            grid-template-columns: 220px 1fr 160px 180px;
+            gap: 15px;
+            align-items: center;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+        }
+
+        .search-title {
+            font-size: 22px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #0f172a;
+        }
+
+        .search-input input {
+            width: 100%;
+            padding: 16px 18px;
+            border: 1px solid #cbd5e1;
+            border-radius: 14px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .category-pill {
+            background: #eff6ff;
+            color: #2563eb;
+            padding: 14px 16px;
+            border-radius: 14px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        /* FEATURES */
+        .features {
+            margin: 20px 0 28px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 22px;
+            padding: 24px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
+        }
+
+        .feature-icon {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: #dbeafe;
+            color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #0f172a;
+        }
+
+        .feature-card p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #64748b;
+        }
+
+        /* BOOK SECTION */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 32px 0 18px;
+        }
+
+        .section-header h2 {
+            font-size: 34px;
+            color: #0b2454;
+        }
+
+        .section-header a {
+            color: #2563eb;
+            font-weight: 700;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 18px;
+        }
+
+        .book-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
+        }
+
+        .book-cover {
+            height: 180px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #1d4ed8, #0f172a);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .book-card h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+
+        .book-card p {
+            font-size: 15px;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            color: #f59e0b;
+            font-weight: 700;
+        }
+
+        /* STATS */
+        .stats {
+            margin: 30px 0;
+        }
+
+        .stats-box {
+            background: linear-gradient(90deg, #2563eb, #1d4ed8);
+            color: white;
+            border-radius: 24px;
+            padding: 30px 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            border-right: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-item i {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .stat-item h3 {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        .stat-item p {
+            font-size: 20px;
+        }
+
+        /* CONTENT BLOCK */
+        main {
+            min-height: 200px;
+        }
+
+        .page-content {
+            margin: 40px 0;
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #08244d;
+            color: white;
+            margin-top: 40px;
+            padding-top: 50px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+            gap: 30px;
+            padding-bottom: 35px;
+        }
+
+        .footer-brand h3 {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p,
+        .footer-links a,
+        .footer-contact p {
+            color: #dbeafe;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .footer-links h4,
+        .footer-contact h4 {
+            margin-bottom: 14px;
+            font-size: 20px;
+        }
+
+        .footer-links a {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .socials {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .socials a {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #1d4ed8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding: 18px 0;
+            text-align: center;
+            color: #cbd5e1;
+            font-size: 15px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .hero-wrapper,
+            .feature-grid,
+            .book-grid,
+            .footer-grid,
+            .stats-box,
+            .search-box {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .book-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .search-box {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-wrapper {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero-wrapper,
+            .feature-grid,
+            .book-grid,
+            .stats-box,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-left h1 {
+                font-size: 42px;
+            }
+
+            .hero-left p {
+                font-size: 18px;
+            }
+
+            .section-header h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+
+
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="container nav-wrapper">
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+                <div class="logo-text">
+                    <h2>Kutubxona</h2>
+                    <p>Boshqaruv Tizimi</p>
+                </div>
+            </a>
+
+            <nav class="nav-links">
+                <a href="/" class="active">Bosh sahifa</a>
+                <a href="#">Kitoblar</a>
+                <a href="{% url 'create_book' %}">Kitob qushish</a>
+                <a href="#">Mualliflar</a>
+                <a href="#">Biz haqimizda</a>
+                <a href="#">Kirish</a>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#" class="btn btn-primary">
+                    <i class="fa-regular fa-user"></i>
+                    Ro'yxatdan o'tish
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container hero-wrapper">
+            <div class="hero-left">
+                <div class="hero-badge">Zamonaviy • Tezkor • Ishonchli</div>
+                <h1>
+                    Kutubxonangizni<br>
+                    zamonaviy usulda<br>
+                    <span>boshqaring</span>
+                </h1>
+                <p>
+                    Kitoblar, o‘quvchilar, berish-qaytarish jarayonlari, qidiruv va statistika —
+                    barchasini bir tizimda oson boshqaring. Kutubxonangiz uchun aqlli va qulay yechim.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">
+                        <i class="fa-solid fa-rocket"></i>
+                        Boshlash
+                    </a>
+                    <a href="{% url 'book-list'%}" class="btn btn-outline">
+                        <i class="fa-solid fa-book"></i>
+                        Kitoblarni ko'rish
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="dashboard-top">
+                    <div class="sidebar-mini">
+                        <h4><i class="fa-solid fa-book-open"></i> Kutubxona</h4>
+                        <ul>
+                            <li class="active">Bosh sahifa</li>
+                            <li>Kitoblar</li>
+                            <li>O‘quvchilar</li>
+                            <li>Borrowlar</li>
+                            <li>Statistika</li>
+                            <li>Mualliflar</li>
+                            <li>Kategoriyalar</li>
+                        </ul>
+                    </div>
+
+                    <div class="dashboard-content">
+                        <div class="dashboard-search">
+                            <i class="fa-solid fa-magnifying-glass"></i> Kitob qidirish...
+                        </div>
+
+                        <div class="dashboard-cards">
+                            <div class="mini-card">
+                                <h5>Yangi qo‘shilgan kitoblar</h5>
+                                <p>Python, Atomic Habits, Sapiens va boshqa mashhur kitoblar.</p>
+                            </div>
+                            <div class="mini-card">
+                                <h5>Borrow statistikasi</h5>
+                                <p>Berilgan, qaytarilgan va kechikkan kitoblar statistikasi.</p>
+                            </div>
+                            <div class="mini-card">
+                                <h5>So‘nggi borrowlar</h5>
+                                <p>Kim qaysi kitobni qachon olgani haqidagi ma’lumotlar.</p>
+                            </div>
+                            <div class="mini-card">
+                                <h5>Mashhur kitoblar</h5>
+                                <p>Eng ko‘p o‘qilgan va foydalanuvchilar yoqtirgan kitoblar.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEARCH -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-box">
+                <div class="search-title">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    Kitob qidirish
+                </div>
+
+                <div class="search-input">
+                    <input type="text" placeholder="Kitob nomi, muallif yoki kalit so‘z...">
+                </div>
+
+                <button class="btn btn-primary">Qidirish</button>
+
+                <div class="category-pill">
+                    <i class="fa-solid fa-code"></i> Dasturlash
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="container">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <h3>Tez qidiruv</h3>
+                    <p>Kitoblarni nomi, muallifi yoki kalit so‘z orqali tez va oson qidiring.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+                    <h3>Borrow nazorati</h3>
+                    <p>Berish va qaytarish jarayonlarini to‘liq nazorat qiling, kechikmalarni kuzating.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-users"></i></div>
+                    <h3>Foydalanuvchi rollari</h3>
+                    <p>Admin, kutubxonachi va o‘quvchi rollari orqali tizimdan samarali foydalaning.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-solid fa-table-list"></i></div>
+                    <h3>Pagination va tartib</h3>
+                    <p>Kitoblarni sahifalash, saralash va filtrlash orqali qulay ko‘rish imkoniyati.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POPULAR BOOKS -->
+    <section class="popular-books">
+        <div class="container">
+            <div class="section-header">
+                <h2>Mashhur kitoblar</h2>
+                <a href="#">Barchasini ko‘rish →</a>
+            </div>
+
+            <div class="book-grid">
+                <div class="book-card">
+                    <div class="book-cover">Python dasturlash tili</div>
+                    <h4>Python dasturlash tili</h4>
+                    <p>Mark Lutz</p>
+                    <div class="rating">★ 4.8 (128)</div>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-cover" style="background: linear-gradient(135deg, #f59e0b, #7c2d12);">Atomic Habits</div>
+                    <h4>Atomic Habits</h4>
+                    <p>James Clear</p>
+                    <div class="rating">★ 4.7 (96)</div>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-cover" style="background: linear-gradient(135deg, #dc2626, #7f1d1d);">Sapiens</div>
+                    <h4>Sapiens</h4>
+                    <p>Yuval Noah Harari</p>
+                    <div class="rating">★ 4.7 (142)</div>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-cover" style="background: linear-gradient(135deg, #7c3aed, #4c1d95);">Boy ota kambag‘al ota</div>
+                    <h4>Boy ota, kambag‘al ota</h4>
+                    <p>Robert T. Kiyosaki</p>
+                    <div class="rating">★ 4.6 (88)</div>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-cover" style="background: linear-gradient(135deg, #78716c, #292524);">O‘tkan kunlar</div>
+                    <h4>O‘tkan kunlar</h4>
+                    <p>Abdulla Qodiriy</p>
+                    <div class="rating">★ 4.6 (74)</div>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-cover" style="background: linear-gradient(135deg, #0ea5e9, #164e63);">Ikigai</div>
+                    <h4>Ikigai</h4>
+                    <p>Héctor García</p>
+                    <div class="rating">★ 4.7 (63)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-box">
+                <div class="stat-item">
+                    <i class="fa-solid fa-book-open"></i>
+                    <h3>10,000+</h3>
+                    <p>Kitob</p>
+                </div>
+
+                <div class="stat-item">
+                    <i class="fa-solid fa-users"></i>
+                    <h3>1,200+</h3>
+                    <p>O‘quvchi</p>
+                </div>
+
+                <div class="stat-item">
+                    <i class="fa-solid fa-pen-nib"></i>
+                    <h3>350+</h3>
+                    <p>Muallif</p>
+                </div>
+
+                <div class="stat-item">
+                    <i class="fa-solid fa-chart-column"></i>
+                    <h3>25,000+</h3>
+                    <p>Berishlar</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <h3><i class="fa-solid fa-book-open"></i> Kutubxona</h3>
+                <p>
+                    Kutubxonalarni boshqarish uchun zamonaviy va ishonchli platforma.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Tezkor havolalar</h4>
+                <a href="#">Bosh sahifa</a>
+                <a href="#">Kitoblar</a>
+                <a href="#">Kategoriyalar</a>
+                <a href="#">Mualliflar</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Foydali</h4>
+                <a href="#">Biz haqimizda</a>
+                <a href="#">Yordam</a>
+                <a href="#">Qoidalar</a>
+                <a href="#">Maxfiylik siyosati</a>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Biz bilan bog‘laning</h4>
+                <p><i class="fa-solid fa-phone"></i> +998 90 123 45 67</p>
+                <p><i class="fa-solid fa-envelope"></i> info@kutubxona.uz</p>
+                <p><i class="fa-solid fa-location-dot"></i> Toshkent, O‘zbekiston</p>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Bizni kuzating</h4>
+                <div class="socials">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright">
+            © 2024 Kutubxona Boshqaruv Tizimi. Barcha huquqlar himoyalangan.
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+
+</body>

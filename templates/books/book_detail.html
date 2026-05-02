@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>booksList</h2>
+
+   
+        <br><br>
+
+        <div style="border:1px solid gray; padding:10px; margin-bottom:10px;">
+            <h3>{{ book.title }}</h3>
+            <p>{{ book.description }}</p>
+            <p>{{ book.price }}</p>
+            <p>{{ book.created_at }} qoshilgan vaqti</p>
+            <H1>{{ book.id }} </H1>
+
+
+        </div>
+
+        <p>Hozircha kitoblar yo'q</p>
+
+{% endblock %}

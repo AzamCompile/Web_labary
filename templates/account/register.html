@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block content%}
+
+<style>
+        body {
+            align-items: center;
+        }
+
+        .card {
+            margin-top:10px;
+            background: white;
+            padding: 30px;
+            width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #4facfe;
+            box-shadow: 0 0 5px rgba(79,172,254,0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4facfe;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #00c6ff;
+        }
+
+        .error {
+            background: #ffdddd;
+            color: red;
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: #4facfe;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+
+    <h2>Register</h2>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input type="text" name="username" placeholder="Username" required>
+
+        <input type="email" name="email" placeholder="Email">
+
+        <input type="text" name="phone_number" placeholder="Phone number">
+
+        <input type="password" name="password1" placeholder="Password" required>
+
+        <input type="password" name="password2" placeholder="Confirm password" required>
+
+        <button type="submit">Create Account</button>
+    </form>
+
+    <div class="footer">
+        Already have account? <a href="/login/">Login</a>
+    </div>
+
+    <a href="{% url 'login' %}">Login</a>
+</div>
+{% endblock %}

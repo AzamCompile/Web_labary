@@ -1,0 +1,13 @@
+<h1>Mening kitoblarim</h1>
+
+{% for b in borrows %}
+    <p>
+        {{ b.book.title }} -
+        {% if b.is_returned %}
+            ✅ Qaytarilgan
+        {% else %}
+            ❌ Hali qaytarilmagan
+            <a href="{% url 'return-book' b.id %}">Qaytarish</a>
+        {% endif %}
+    </p>
+{% endfor %}
